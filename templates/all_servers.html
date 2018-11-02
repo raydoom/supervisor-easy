@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% block hovor %}
+<ul class="nav nav-pills">
+    <li role="presentation"><a href="/">Group List</a></li>
+    <li role="presentation"><a href="/servers">Server List</a></li>
+	<li role="presentation" class="active"><a href="/all_servers">All List</a></li>
+</ul>
+{% endblock %}
+{% block body %}
+<div class="page-header">
+    <h1>All List
+        <small>controlled by supervisor</small>
+    </h1>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <ul class="nav nav-pills nav-stacked">
+            {% for server in servers %}
+            <li role="presentation" style="background-color: lemonchiffon  ">
+<!--                <a href="#" onclick="show_server_status('{{server.id}}')">
+                    {{ server.user }}@{{server.host}}:{{server.port}}
+
+-->								
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="col-md-8" id="server_div">
+    </div>
+</div>
+
+<!--<h3>{{uri}}</h3>-->
+<table class="table table-striped">
+    <tr>
+        <th width="10%">state</th>
+        <th width="10%">app</thw>
+        <th width="40%">location</th>
+        <th width="30%">description</th>
+        <th colspan="4" width="10%">operation</th>
+    </tr>
+	{% for apps in app_all%}
+    {% for app in apps%}
+    <tr>
+        <td>
+            {% if app.get('state') == 0 %}
+                <span style="background-color: lightgray">
+                 {% elif app.get('state') == 10 %}
+                <span style="background-color: yellow">
+                 {% else %}
+                <span style="background-color: lightgreen">
+                    {% endif %}
+                    {{app.get('statename')}}
+                </span>
+        </td>
+        <td>{{app.get('name')}}</td>
+        <td>{{'{}@{}:{}'.format(app.get('user'), app.get('host'), app.get('port'))}}</td>
+        <td>{{app.get('description')}}</td>
+        <td>
+            <button class="btn btn-primary btn-xs"
+                    onclick="app_opt('{{app.get('id')}}', '{{app.get('group')}}', '{{app.get('name')}}', 'start')">
+                start
+            </button>
+        </td>
+        <td>
+            <button class="btn btn-primary btn-xs"
+                    onclick="app_opt('{{app.get('id')}}', '{{app.get('group')}}', '{{app.get('name')}}', 'restart')">
+                restart
+            </button>
+        </td>
+        <td>
+            <button class="btn btn-primary btn-xs"
+                    onclick="app_opt('{{app.get('id')}}', '{{app.get('group')}}', '{{app.get('name')}}', 'stop')">
+                stop
+            </button>
+        </td>
+        <td>
+            <button class="btn btn-primary btn-xs"
+                    onclick="tail_log('{{app.get('id')}}', '{{app.get('group')}}', '{{app.get('name')}}')">
+                tail
+            </button>
+        </td>
+        </td>
+        {% endfor %}
+		{% endfor %}
+</table>
+
+
+{% endblock %}
+
+
+</body>
+</html>

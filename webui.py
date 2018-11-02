@@ -26,7 +26,23 @@ def index():
 def servers():
     return render_template('servers.html', servers=server_id_mapping.values())
 
-
+#====
+@app.route('/all_servers/')
+def all_servers():
+    server_id_all = []
+    app_all = []
+    servers = server_id_mapping.values()
+    for server in servers:
+        server_id = server_id_mapping.get(server.id)
+        server_id_all.append(server_id)
+        app=server.get_all_process_info()
+        app_all.append(app)
+    print server_id_all
+    print app_all
+    uri = '%s@%s:%s' % (server.user, server.host, server.port)
+    return render_template('all_servers.html', servers=server_id_mapping.values(), uri=uri, server_id_all=server_id_all, app_all=app_all)
+#====
+	
 @app.route('/server/<server_id>/status/')
 def server_status(server_id):
     server = server_id_mapping.get(server_id)

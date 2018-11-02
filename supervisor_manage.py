@@ -14,6 +14,7 @@ def parse_server_config(server, server_dict):
         return server_dict.get(server), ''
     else:
         return server_dict.get(parts[0]), parts[1]
+	print (server_dict.get(server))
 
 
 def get_group_mapping():

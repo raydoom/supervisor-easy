@@ -3,6 +3,7 @@
     <ul class="nav nav-pills">
         <li role="presentation" class="active"><a href="/">Group List</a></li>
         <li role="presentation"><a href="/servers">Server List</a></li>
+		<li role="presentation"><a href="/all_servers">All List</a></li>
     </ul>
 {% endblock %}
 {% block body %}
@@ -17,7 +18,7 @@
                 <div class="panel-heading" role="tab">
                     <div class="row">
                         <div class="col-md-8">
-                            <h4><strong><a class="collapsed" role="button" data-toggle="collapse" href="#{{ app[0] }}"
+                            <h4><strong><a class="collapsed in" role="button" data-toggle="collapse" href="#{{ app[0] }}"
                                            aria-expanded="false">
                                 {{ app[0] }}
                             </a></strong></h4>
@@ -44,8 +45,8 @@
                     </div>
                 </div>
 
-                <div id="{{ app[0] }}" class="panel-collapse collapse" role="tabpanel"
-                     aria-expanded="false" style="height: 0px;">
+                <div id="{{ app[0] }}" class="panel-collapse collapse in" role="tabpanel"
+                     aria-expanded="true">
                     <table class="table table-striped">
                         <tr>
                             <th width="10%">state</th>
