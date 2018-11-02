@@ -29,18 +29,18 @@ def servers():
 #====
 @app.route('/all_servers/')
 def all_servers():
-    server_id_all = []
-    app_all = []
+    server_all_list = []
     servers = server_id_mapping.values()
     for server in servers:
+        server_app_dict = {}
         server_id = server_id_mapping.get(server.id)
-        server_id_all.append(server_id)
-        app=server.get_all_process_info()
-        app_all.append(app)
-    print server_id_all
-    print app_all
-    uri = '%s@%s:%s' % (server.user, server.host, server.port)
-    return render_template('all_servers.html', servers=server_id_mapping.values(), uri=uri, server_id_all=server_id_all, app_all=app_all)
+        server_app_dict['server_id'] = server_id
+        apps=server.get_all_process_info()
+        server_app_dict['apps'] = apps
+        server_all_list.append(server_app_dict)
+        print server_app_dict
+        print server_all_list
+    return render_template('all_servers.html', servers=server_id_mapping.values(), server_all_list=server_all_list)
 #====
 	
 @app.route('/server/<server_id>/status/')

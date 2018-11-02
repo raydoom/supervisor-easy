@@ -30,7 +30,10 @@
     </div>
 </div>
 
-<!--<h3>{{uri}}</h3>-->
+{% for server_info in server_all_list%}
+
+<!--<h4>{{uri}}</h4>-->
+<h3>Host: {{server_info["server_id"].host}}</h3>
 <table class="table table-striped">
     <tr>
         <th width="10%">state</th>
@@ -39,8 +42,7 @@
         <th width="30%">description</th>
         <th colspan="4" width="10%">operation</th>
     </tr>
-	{% for apps in app_all%}
-    {% for app in apps%}
+    {% for app in server_info["apps"]%}
     <tr>
         <td>
             {% if app.get('state') == 0 %}
@@ -81,10 +83,9 @@
             </button>
         </td>
         </td>
-        {% endfor %}
 		{% endfor %}
 </table>
-
+{% endfor %}
 
 {% endblock %}
 
