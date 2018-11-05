@@ -37,13 +37,18 @@ class Server(object):
         return process_info
 
     def get_all_process_info(self):
-        process_infos = self.rpc_proxy.supervisor.getAllProcessInfo()
-        for process_info in process_infos:
-            process_info['host'] = self.host
-            process_info['port'] = self.port
-            process_info['user'] = self.user
-            process_info['id'] = self.id
-        return process_infos
+        try:
+            process_infos = self.rpc_proxy.supervisor.getAllProcessInfo()
+            for process_info in process_infos:
+                process_info['host'] = self.host
+                process_info['port'] = self.port
+                process_info['user'] = self.user
+                process_info['id'] = self.id
+            return process_infos
+        except Exception, e:
+            logging.error(e)
+            process_infos = None
+            return process_infos            
 
     def stop_process(self, app_name):
         if self.check_status(app_name, self.STARTING, self.RUNNING):

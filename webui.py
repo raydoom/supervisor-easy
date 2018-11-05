@@ -36,10 +36,10 @@ def all_servers():
         server_id = server_id_mapping.get(server.id)
         server_app_dict['server_id'] = server_id
         apps=server.get_all_process_info()
-        server_app_dict['apps'] = apps
-        server_all_list.append(server_app_dict)
-        print server_app_dict
-        print server_all_list
+        if apps != None:
+            server_app_dict['apps'] = apps
+            server_all_list.append(server_app_dict)
+		
     return render_template('all_servers.html', servers=server_id_mapping.values(), server_all_list=server_all_list)
 #====
 	
